@@ -3,19 +3,22 @@
 Written before the first build, so treat everything below the line as
 provisional until the app has actually run on the phone once.
 
+## Done
+
+- Compiles, analyzes clean, tests pass, the APK builds and publishes itself.
+- Repo is `scenicprints/phone-cleanup`, public, which is what lets the in-app
+  updater read the Releases API without a token.
+- Signing key is a PKCS12 store made with openssl, since there is no JDK on
+  this machine. Valid to 2056, kept in the sibling `phone-cleanup-signing`
+  folder and mirrored into the four repo secrets. v0.1.0 is signed with it, so
+  it upgrades in place from here on.
+
 ## Before anything else
 
-1. **Get it to compile.** There is no Flutter SDK on the machine this was
-   written on, so the first CI run is the first syntax check. Expect a few
-   rounds.
-2. **Create the repo and the signing key.** `scenicprints/phone-cleanup`,
-   public, plus a keystore in a sibling `phone-cleanup-signing` folder and the
-   four base64 secrets. Without the key the first APK cannot be upgraded in
-   place and has to be uninstalled before the second one goes on.
-3. **One real scan on the phone**, with a stopwatch. The unknowns are how long
-   a full walk takes at 95% full, and whether the duplicate pass reads enough
-   to be annoying. If the walk is slow the fix is to report progress more
-   often, not to walk less.
+**One real scan on the phone, with a stopwatch.** Nothing below this line is
+worth acting on until that has happened once. The unknowns are how long a full
+walk takes at 95% full, whether the duplicate pass reads enough to be annoying,
+and whether the memory ceiling is anywhere near the right number.
 
 ## Likely first fixes
 

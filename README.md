@@ -137,7 +137,12 @@ its own padding. The reserved space is a real widget in a `Column`, not an
 overlay, so a new screen cannot forget to account for it: there is no code
 path that reaches the bottom of the window at all.
 
-## Known gaps
+## State
 
-None of this has been compiled yet. The first syntax check happens on the CI
-runner, so the first few builds are likely to be compile fixes.
+v0.1.0 is built, signed and published. Analyze, tests and the APK build are all
+green, and the release APK carries the persistent key, so it upgrades in place.
+
+It has not been run on a phone yet. Everything above is checked by a compiler
+and by unit tests over synthetic file lists; none of it has met a real
+filesystem. The first scan on the phone is the real test, and the questions it
+answers are listed in ROADMAP.md.
