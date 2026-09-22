@@ -1,0 +1,12 @@
+include: package:flutter_lints/flutter.yaml
+
+# Deleting the wrong file is the only unrecoverable bug this app has, so the
+# rules kept here are the ones that stop a null or a swallowed error hiding.
+# Style lints that would bury those in noise are left off deliberately.
+linter:
+  rules:
+    - always_declare_return_types
+    - avoid_empty_else
+    - avoid_returning_null_for_void
+    - cancel_subscriptions
+    - close_sinks

@@ -1,0 +1,42 @@
+name: phone_cleanup
+description: "Finds what is eating the phone's storage, and deletes only what you confirm."
+publish_to: 'none'
+
+# Version is the single source of truth for the app's version.
+# publish.ps1 bumps this; the in-app updater compares it to the latest
+# GitHub Release. (Mirrors the BodyComp pipeline.)
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.9.0
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+
+  # In-app OTA updater
+  http: ^1.2.2               # GitHub Releases API
+  package_info_plus: ^8.1.0  # read the installed app version
+  ota_update: ^7.0.0         # download + install a newer APK
+
+  # Scanning.
+  # There is no permission plugin here on purpose: MANAGE_EXTERNAL_STORAGE and
+  # usage access are both checked and requested through the app's own method
+  # channel, which is one file and has no opinion about Android versions.
+  path_provider: ^2.1.4      # where the scan history is kept
+  crypto: ^3.0.5             # duplicate detection by content hash
+
+  google_fonts: ^6.2.1       # Inter for text, IBM Plex Mono for figures
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+# The launcher icon is a vector adaptive icon checked into
+# android/app/src/main/res, so there is no PNG for a generator to process.
+
+flutter:
+  uses-material-design: true

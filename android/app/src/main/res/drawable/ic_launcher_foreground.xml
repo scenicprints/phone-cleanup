@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Three bars, each shorter than the last: storage coming down. Drawn inside
+     the 72dp safe zone of the 108dp adaptive canvas so no launcher mask cuts it. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#E0A458"
+        android:pathData="M31,38h46v9h-46z" />
+    <path
+        android:fillColor="#9AA0A6"
+        android:pathData="M31,52h33v9h-33z" />
+    <path
+        android:fillColor="#5F6672"
+        android:pathData="M31,66h20v9h-20z" />
+</vector>

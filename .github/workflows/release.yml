@@ -1,0 +1,72 @@
+name: Build & Release APK
+
+# Runs whenever a version tag (e.g. v0.2.0) is pushed. publish.ps1 does that.
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write   # needed to create the GitHub Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.44.2'
+          channel: stable
+          cache: true
+
+      - name: Install dependencies
+        run: flutter pub get
+
+      # Absent secrets are not a build failure: the APK still gets made, it is
+      # just signed with the debug key and will not upgrade an existing install.
+      - name: Restore signing keystore
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+          STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+        run: |
+          if [ -z "$KEYSTORE_BASE64" ]; then
+            echo "No keystore secret set. Building with the debug key."
+            exit 0
+          fi
+          printf '%s' "$KEYSTORE_BASE64" | tr -d '[:space:]' | base64 --decode > android/app/upload-keystore.jks
+          cat > android/key.properties <<PROPS
+          storePassword=$STORE_PASSWORD
+          keyPassword=$KEY_PASSWORD
+          keyAlias=$KEY_ALIAS
+          storeFile=upload-keystore.jks
+          PROPS
+
+      - name: Build release APK
+        run: flutter build apk --release
+
+      - name: Rename APK to versioned name
+        run: |
+          VERSION="${GITHUB_REF_NAME#v}"
+          cp build/app/outputs/flutter-apk/app-release.apk "phone-cleanup-${VERSION}.apk"
+
+      - name: Extract release notes from the tag message
+        run: git tag -l --format='%(contents)' "$GITHUB_REF_NAME" > RELEASE_NOTES.txt
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: ${{ github.ref_name }}
+          body_path: RELEASE_NOTES.txt
+          files: phone-cleanup-*.apk

@@ -1,0 +1,14 @@
+# The Gradle wrapper IS committed here. There is no Android SDK or Gradle
+# on the machine this app is written on, so CI runs the wrapper straight
+# out of the checkout and a missing jar means no build at all.
+/.gradle
+/captures/
+/local.properties
+GeneratedPluginRegistrant.java
+.cxx/
+
+# Remember to never publicly share your keystore.
+# See https://flutter.dev/to/reference-keystore
+key.properties
+**/*.keystore
+**/*.jks
