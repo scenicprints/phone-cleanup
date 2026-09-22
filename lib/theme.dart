@@ -342,7 +342,7 @@ class SectionLabel extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(child: Text(text.toUpperCase(), style: kLabel)),
-          if (trailing != null) trailing!,
+          ?trailing,
         ],
       ),
     );

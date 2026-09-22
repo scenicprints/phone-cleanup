@@ -183,7 +183,7 @@ List<List<FileRec>> _groupBy(List<FileRec> input, String? Function(FileRec) key)
 
 // ── Leftovers ─────────────────────────────────────────────────────────
 
-/// Android/media/<package> survives the uninstall of the app that made it.
+/// `Android/media/<package>` survives the uninstall of the app that made it.
 /// This is where the multi-gigabyte WhatsApp folder sits after you have
 /// already removed WhatsApp.
 FindGroup _orphanAppMedia(List<FileRec> files, Set<String> installed) {
@@ -248,7 +248,7 @@ FindGroup _thumbnailsAndCaches(List<FileRec> files) {
   );
 }
 
-/// Android stages a deleted photo as .trashed-<timestamp>-<name> for 30 days
+/// Android stages a deleted photo as `.trashed-<timestamp>-<name>` for 30 days
 /// before actually removing it.
 FindGroup _trashed(List<FileRec> files) {
   final List<FindItem> items = <FindItem>[];

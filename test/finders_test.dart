@@ -35,7 +35,7 @@ List<FindGroup> run(
     installedPackages: installed,
     options: options,
     hash: fakeHash(contents),
-    onProgress: (String _, String __) {},
+    onProgress: (String _, String _) {},
   );
 }
 

@@ -7,7 +7,6 @@ import '../models.dart';
 import '../native.dart';
 import '../theme.dart';
 import '../updater.dart';
-import '../widgets.dart';
 
 // ═══════════════════════════════════════════════════════════════════════
 // SETTINGS
