@@ -41,6 +41,10 @@ android {
     signingConfigs {
         create("release") {
             if (hasSigning) {
+                // Generated with openssl rather than keytool, because there is
+                // no JDK on the machine this is developed on, so the store is
+                // PKCS12 and has to say so.
+                storeType = "PKCS12"
                 keyAlias = keystoreProperties["keyAlias"] as String
                 keyPassword = keystoreProperties["keyPassword"] as String
                 storeFile = file(keystoreProperties["storeFile"] as String)
